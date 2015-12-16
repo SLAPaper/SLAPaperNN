@@ -12,10 +12,10 @@ class MLP(IClassifier):
             self.Theta.append(matlib.empty((args[i] + 1, args[i + 1])))
 
     def fit(self, X, y):
-        #here will train the model using X and y
+        # here will train the model using X and y
     
     def predict(self, X):
-        #here will give the prediction of X
+        # here will give the prediction of X
     
     def test(self, X, y):
-        #here will test with X and y
+        # here will test with X and y
