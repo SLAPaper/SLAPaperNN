@@ -23,9 +23,10 @@ def generate_half_moon(n = 1000, radius=10, width=10, distance_x=7.5, distance_y
     positive_list = []
     negative_list = []
     
+    Point = namedtuple('Point', ('x', 'y'))
+    
     def __generate_point_uniformly(radius, width, distance_x, distance_y, positive):
-        # reference: http://stackoverflow.com/questions/5837572/generate-a-random-point-within-a-circle-uniformly
-        Point = namedtuple('Point', ('x', 'y'))
+        # reference: http://stackoverflow.com/questions/9048095/create-random-number-within-an-annulus
         
         t = math.pi * random()
         if positive:
@@ -33,11 +34,12 @@ def generate_half_moon(n = 1000, radius=10, width=10, distance_x=7.5, distance_y
         else:
             t = -t
         
-        u = uniform(0, width) + uniform(0, width)
-        r = 2 * width - u if u > width else u
+        R_square = (radius + width) ** 2
+        r_square = radius ** 2
+        r = math.sqrt((R_square - r_square) * random() + r_square)
         
-        x = (r + radius) * math.cos(t) 
-        y = (r + radius) * math.sin(t)
+        x = r * math.cos(t) 
+        y = r * math.sin(t)
         
         if positive:
             x -= distance_x
