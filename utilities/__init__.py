@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import random, math
 from collections import namedtuple
 from random import random, uniform
-from abc import ABCMeta, abstractmethod
 
 def sigmoid(x):
     return 1 / (1 + numpy.exp(-x))

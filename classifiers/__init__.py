@@ -6,18 +6,36 @@ from abc import ABCMeta, abstractmethod
 from utilities import *
 
 class IClassifier(metaclass=ABCMeta):
+    """The abstract base class of all the Classifiers"""
     @abstractmethod
-    def fit(self, X, y):
-        # here will train the model using X and y
+    def fit(self, X, y, *args, **kwargs):
+        """Train the model using X and y
+        
+        X is the feature matrix, each sample shall be shaped in a row vector
+        y is the target result, each row is whether belongs to this class
+        Return the final J (value of the cost function)
+        
+        """
         pass
     
     @abstractmethod
-    def predict(self, X):
-        # here will give the prediction of X
+    def predict(self, X, *args, **kwargs):
+        """Give the prediction of X
+        
+        X is the feature matrix, each sample shall be shaped in a row vector
+        Return a matrix, each row is the classification result of each sample
+         
+        """
         pass
+    
     @abstractmethod
-    def test(self, X, y):
-        # here will test with X and y
+    def test(self, X, y, *args, **kwargs):
+        """Test with X and y
+        
+        X is the feature matrix, each sample shall be shaped in a row vector
+        y is the test result, each row is whether belongs to this class
+        
+        """
         pass
 
 class RBF():
@@ -28,13 +46,10 @@ class RBF():
         self._Theta1 = matlib.randn((n_RBF, n_X))
         self._Theta2 = matlib.randn((n_RBF + 1, n_y))
     
-    def fit(self, X, y):
-        # here will train the model using X and y
+    def fit(self, X, y, *args, **kwargs):
         pass
     
-    def predict(self, X):
-        # here will give the prediction of X
-        # X is supposed to be an matrix or 2-d array and each sample shall be shaped in a row vector
+    def predict(self, X, *args, **kwargs):
         m = X.shape[0]
         RBF_result = matlib.empty((m, self._n_RBF + 1))
         
@@ -54,9 +69,7 @@ class RBF():
         raw_output = RBF_result * self._Theta2
         return sigmoid(raw_output) > 0.5
     
-    def test(self, X, y):
-        # here will test with X and y
-        # y is supposed to be of the same size of X in rows
+    def test(self, X, y, *args, **kwargs):
         # now return the number of wrong cases
         y_predict = self.predict(X)
         return numpy.count_nonzero(numpy.sum(y_predict != y, axis=1))
@@ -71,14 +84,10 @@ class MLP:
         for i in range(len(args) - 1):
             self._Theta.append(matlib.randn((args[i] + 1, args[i + 1])))
         
-    def fit(self, X, y):
-        # here will train the model using X and y
-        # X is supposed to be an matrix or 2-d array and each sample shall be shaped in a row vector
+    def fit(self, X, y, *args, **kwargs):
         pass
     
-    def predict(self, X):
-        # here will give the prediction of X
-        # X is supposed to be an matrix or 2-d array and each sample shall be shaped in a row vector
+    def predict(self, X, *args, **kwargs):
         m = X.shape[0]
         Z = None
         S = None
@@ -96,9 +105,7 @@ class MLP:
         
         return S > 0.5
     
-    def test(self, X, y):
-        # here will test with X and y
-        # y is supposed to be of the same size of X in rows
+    def test(self, X, y, *args, **kwargs):
         # now return the number of wrong cases
         y_predict = self.predict(X)
         return numpy.count_nonzero(numpy.sum(y_predict != y, axis=1))
